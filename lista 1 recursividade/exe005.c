@@ -7,7 +7,7 @@ int comb(int n, int k){
     }else if((1 < k) && (k < n)){
         return comb(n - 1, k - 1) + comb(n - 1, k);
     }else{
-        return 0;
+         return 0;
     }
     
 }

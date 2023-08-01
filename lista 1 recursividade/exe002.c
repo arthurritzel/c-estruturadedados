@@ -6,9 +6,8 @@ int pot(int n, int x){
     }else{
         return(n * pot(n, x - 1));
     }
-    
-
 }
+
 int main(){
     int n, x;
     printf("Digite o valor de n: ");
