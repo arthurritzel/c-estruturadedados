@@ -7,7 +7,7 @@ void calc_esfera(float r, float *area, float *volume){
 }
 
 int main(){
-    float r, area, volume;
+    float r, area = 0, volume = 0;
     printf("Digite o raio da esfera: ");
     scanf("%f", &r);
 
