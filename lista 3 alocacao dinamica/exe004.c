@@ -42,8 +42,5 @@ int main(){
             printf("\n->%i\n", vet[i]);
         }
     }
-    
-    printf("%i", sizeof(vet));
-
     free(vet);
 }
