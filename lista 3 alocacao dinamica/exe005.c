@@ -4,7 +4,7 @@
 int main(){
     int *vet, aux, i;
 
-    printf("Digite valores a serem armazendos em um vetor, digite um numero negativo para sair");
+    printf("Digite valores a serem armazendos em um vetor, digite um numero negativo para sair\n");
     for (i = 0; i != -1; i++){
         printf("->");
         scanf("%i", &aux);
@@ -29,8 +29,9 @@ int main(){
         printf("Nenhum valor armazenado!");
     }else{
         for(int j = 0; j < i; j++){
-            printf("%i", vet[j]);
+            printf("%i\n", vet[j]);
         }
     }
-    
+    printf("%i", sizeof(vet));
+    free(vet);
 }
