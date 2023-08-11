@@ -70,4 +70,6 @@ int main(){
 
     printf("Maior Preco registrado: %.2f\n", maiorp);
     printf("Maior quantidade de estoque registrado: %i", maiore);
+
+    free(prod);
 }
