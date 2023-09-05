@@ -149,6 +149,75 @@ void ordenar(lista *inicio){
     
 }
 
+void removeElemento(lista* inicio){
+    int num, flag = 0;
+    node *ant, *temp;
+    if ((*inicio) == NULL){
+        printf("\nLista vazia\n");
+    }else {
+        printf("Digite o numero: ");
+        scanf("%i", &num);
+        if((*inicio)->num == num){
+            temp = (*inicio);
+            *inicio = (*inicio)->prox;
+            free(temp);
+            flag = 1;
+        }else{
+            temp = (*inicio);
+            ant = temp;
+            while (temp != NULL){
+                if (num == temp->num){
+                    
+                    ant->prox = temp->prox;
+                    free(temp);
+                    flag = 1;
+                    break;
+                }
+                ant = temp;
+                temp = temp->prox;
+            }
+        }
+        if (flag == 0){
+            printf("\nNumero nao encontrado na lista\n");
+        }
+        
+    }
+    
+}
+
+void insereOrdenado(lista *inicio){
+    int flag = 0;
+    node *temp;
+    node *novo = (node*)malloc(sizeof(node));
+    printf("Digite o novo valor: ");
+    scanf("%i", &novo->num);
+
+    temp = (*inicio);
+
+    if ((*inicio) == NULL || (*inicio)->num > novo->num){
+        novo->prox = (*inicio);
+        *inicio = novo;
+    }else{
+        while (temp->prox != NULL){
+            
+            if (temp->prox->num > novo->num){
+                
+                novo->prox = temp->prox;
+                temp->prox = novo;
+                flag = 1;
+                break;
+            }
+            temp = temp->prox;
+        }
+        
+        if(flag == 0){
+            
+            temp->prox = novo;
+            novo->prox = NULL;
+        }   
+    }
+}
+
 int main(){
     lista* inicio = criarlistta();
     int esc;
@@ -156,7 +225,7 @@ int main(){
     
     do{
         
-        printf("escolha sua acao\n1-inserir inicio\n2-insere final\n3-remove inicio\n4-remove final\n5-exibe lista\n6-ordenar\n7-encerrar\n");
+        printf("escolha sua acao\n1-inserir inicio\n2-insere final\n3-remove inicio\n4-remove final\n5-exibe lista\n6-ordenar\n7-Insere ordenado\n8-Remover elemento\n->");
         scanf("%i", &esc);
         switch (esc){
         case 1:
@@ -184,7 +253,12 @@ int main(){
             ordenar(inicio);
             break;
         case 7:
-            very = 1;
+            system("clear");
+            insereOrdenado(inicio);
+            break;
+        case 8:
+            system("clear");
+            removeElemento(inicio);
         }
     }while (very != 1);
     liberar(inicio);
