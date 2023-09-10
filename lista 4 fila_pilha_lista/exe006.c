@@ -1,81 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Node{
-    float info;
-    struct Node *prox;
-};
-typedef struct Node node;
-typedef node *lista;
-
-lista* criarlistta(){
-    lista *inicio = (lista*) malloc(sizeof(lista));
-    if (inicio != NULL){
-        *inicio = NULL;
-    }else{
-        printf("Erro na alocaçãooo");
-    }
-    return inicio;
-}
-
-int inserenoinicio(lista *inicio){
-    node *novo = (node*) malloc(sizeof(node));
-    if(novo == NULL){
-        printf("Erro na alocação");
-        return 0;
-    }else{
-        printf("Digite o valor: ");
-        scanf("%f", &novo->info);
-        novo->prox = (*inicio);
-        *inicio = novo;
-    }
-}
-
-void exibelista(lista*inicio){
-    
-    if(*inicio == NULL){
-        printf("Lista vazia");
-    }else{
-        node *temp;
-        temp = (*inicio);
-
-        while (temp != NULL){
-            printf("%f\n", temp->info);
-            temp = temp->prox;
-        }
-    }
-}
-
-void removeinicio(lista* inicio){
-    if ((*inicio) != NULL){
-        node *temp;
-        temp = (*inicio);
-        *inicio = temp -> prox;
-        free(temp);
-    }else{
-        printf("Lista vazia");
-    }
-}
-
-void liberar(lista* inicio){
-    if ((*inicio) == NULL){
-        printf("Lista vazia");
-    }else{
-        node *temp;
-        while ((*inicio) == NULL){
-            temp = *inicio;
-            *inicio = (*inicio)->prox;
-            free(temp);
-        }
-    }
-    
-}
+#include "lista.h"
 
 int main(){
-    lista* inicio = criarlistta();
+    lista* inicio = criarlista();
     int esc, qtn_nos = 1, remove_nos;
 
-    
     do{
         printf("\nDefina sua acao\n1- adicionar elemento\n2-Remover quantidade de elementos\n3-sair\n->");
         scanf("%i", &esc);
