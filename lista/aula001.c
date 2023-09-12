@@ -167,7 +167,6 @@ void removeElemento(lista* inicio){
             ant = temp;
             while (temp != NULL){
                 if (num == temp->num){
-                    
                     ant->prox = temp->prox;
                     free(temp);
                     flag = 1;
