@@ -37,6 +37,7 @@ int inserenofinal(lista *inicio){
     }else{
         if((*inicio) == NULL){
             *inicio = novo;
+            novo->prox = NULL;
         }else{
             node *temp;
             temp = (*inicio);

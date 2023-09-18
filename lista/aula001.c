@@ -198,9 +198,7 @@ void insereOrdenado(lista *inicio){
         *inicio = novo;
     }else{
         while (temp->prox != NULL){
-            
             if (temp->prox->num > novo->num){
-                
                 novo->prox = temp->prox;
                 temp->prox = novo;
                 flag = 1;
@@ -210,7 +208,6 @@ void insereOrdenado(lista *inicio){
         }
         
         if(flag == 0){
-            
             temp->prox = novo;
             novo->prox = NULL;
         }   

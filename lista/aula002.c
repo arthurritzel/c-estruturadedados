@@ -83,6 +83,57 @@ void exibelista(lista*inicio){
     }
 }
 
+void exibelistaMultiplas(lista*inicio){
+    int pesquisa, flag = 0;
+    if(*inicio == NULL){
+        printf("Lista vazia");
+    }else{
+        node *temp;
+        temp = (*inicio);
+        do{
+            flag = 0;
+            printf("digite o numero a ser pesquisado\ndigite -1 para sair\n->");
+            scanf("%i", &pesquisa);
+            if(pesquisa == -1){
+                break;
+            }else if(pesquisa >= temp->num){
+                while (temp->prox != NULL){
+                    if(temp->num == pesquisa){
+                        printf("\n%i\n", temp->num);
+                        flag = 1;
+                        break;
+                    }
+                    temp = temp->prox;
+                }
+
+                if(flag == 0 && temp->num == pesquisa){
+                    printf("%i\n", temp->num);
+                    flag = 1;
+                }
+
+            }else if(pesquisa <= temp->num){
+                while (temp->ant != NULL){
+                    if(temp->num == pesquisa){
+                        printf("\n%i\n", temp->num);
+                        flag = 1;
+                        break;
+                    }
+                    temp = temp->ant;
+                }
+
+                if(flag == 0 && temp->num == pesquisa){
+                    printf("%i\n", temp->num);
+                    flag = 1;
+                }
+
+            }
+            if(flag == 0){
+                printf("\nNumero nao encontrado!\n");
+            }
+        }while(pesquisa != -1);
+    }
+}
+
 void liberar(lista* inicio){
     if ((*inicio) == NULL){
         printf("Lista vazia");
@@ -239,7 +290,7 @@ int main(){
     
     do{
         
-        printf("escolha sua acao\n1-inserir inicio\n2-insere final\n3-remove inicio\n4-remove final\n5-exibe lista\n6-ordenar\n7-Insere ordenado\n8-Remover elemento\n->");
+        printf("escolha sua acao\n1-inserir inicio\n2-insere final\n3-remove inicio\n4-remove final\n5-exibe lista\n6-ordenar\n7-Insere ordenado\n8-Remover elemento\n9-Exibe inteligente\n->");
         scanf("%i", &esc);
         switch (esc){
         case 1:
@@ -273,6 +324,10 @@ int main(){
         case 8:
             system("clear");
             removeElemento(inicio);
+            break;
+        case 9:
+            system("clear");
+            exibelistaMultiplas(inicio);
         }
     }while (very != 1);
     liberar(inicio);
