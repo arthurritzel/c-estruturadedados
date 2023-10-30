@@ -133,14 +133,61 @@ int imprime_PosOrd(ArvBin * raiz){
     }
 }
 
+void contador(no *no_print, int*cont){
+    if(no_print == NULL){
+        return;
+    }else{
+        contador(no_print->esq, cont);
+        contador(no_print->dir, cont);
+        *cont += 1;
+    }
+}
+
+int contar_nos(ArvBin * raiz){
+    if(raiz == NULL){
+        return 0;
+    }else{
+        int cont = 0;
+        contador(*raiz, &cont);
+        return cont;
+    }
+}
+
+void altura(no *no_print, int *altura_direita, int *altura_esquerda) {
+    if (no_print == NULL) {
+        *altura_direita = 0;
+        *altura_esquerda = 0;
+    } else {
+        int altura_dir = 0, altura_esq = 0;
+        altura(no_print->dir, &altura_dir, &altura_esq);
+        *altura_direita = 1 + max(altura_dir, altura_esq);
+
+        altura(no_print->esq, &altura_dir, &altura_esq);
+        *altura_esquerda = 1 + max(altura_dir, altura_esq);
+    }
+}
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int cont_altura(ArvBin *raiz) {
+    if (raiz == NULL) {
+        return 0;
+    } else {
+        int altura_dir = 0, altura_esq = 0;
+        altura(raiz, &altura_dir, &altura_esq);
+        return max(altura_dir, altura_esq);
+    }
+}
+
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definições das estruturas e funções aqui...
 
 int main() {
     ArvBin *raiz = criaArvore();
-    int opc;
+    int opc, cont, altdir = 0, altesq = 0;
 
     do {
         printf("\nMenu de Operações:\n");
@@ -148,7 +195,7 @@ int main() {
         printf("2 - Imprimir árvore em Pré-Ordem\n");
         printf("3 - Imprimir árvore em Ordem\n");
         printf("4 - Imprimir árvore em Pós-Ordem\n");
-        printf("5 - Sair\n");
+        printf("5 - Contar\n");
         printf("Escolha uma opção: ");
         fflush(stdin);
         scanf("%d", &opc);
@@ -170,14 +217,18 @@ int main() {
                 imprime_PosOrd(raiz);
                 break;
             case 5:
-                printf("Saindo do programa...\n");
+                printf("Contando...\n");
+                cont = contar_nos(raiz);
+                printf("\nQuantidade de nos: %i\n", cont);
                 break;
+            case 6:
+                printf("Contando...\n");
+                cont = cont_altura(raiz);
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    } while (opc != 5);
+    } while (opc != 6);
 
-    // Libera a memória antes de encerrar o programa
     libera_arvore(raiz);
 
     return 0;
