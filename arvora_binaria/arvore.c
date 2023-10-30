@@ -153,6 +153,10 @@ int contar_nos(ArvBin * raiz){
     }
 }
 
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
 void altura(no *no_print, int *altura_direita, int *altura_esquerda) {
     if (no_print == NULL) {
         *altura_direita = 0;
@@ -167,9 +171,6 @@ void altura(no *no_print, int *altura_direita, int *altura_esquerda) {
     }
 }
 
-int max(int a, int b) {
-    return (a > b) ? a : b;
-}
 
 int cont_altura(ArvBin *raiz) {
     if (raiz == NULL) {
@@ -184,7 +185,7 @@ int cont_altura(ArvBin *raiz) {
 #include <stdio.h>
 #include <stdlib.h>
 
-remover_folha(no *no_print, no *ant){
+void remover_folha(no *no_print, no *ant){
     if(ant->num > no_print->num){
         ant->esq = NULL;
         free(no_print);
@@ -194,7 +195,7 @@ remover_folha(no *no_print, no *ant){
     }
 }
 
-remover_umFilho(no *no_print, no *ant){
+void remover_umFilho(no *no_print, no *ant){
     if(ant->num > no_print->num){
         if(no_print->dir != NULL){
             ant->esq = no_print->dir;
@@ -215,18 +216,24 @@ remover_umFilho(no *no_print, no *ant){
 }
 
 void remover_interno(no *no_print, no *ant){
-    no *atual2 = (no*) malloc(sizeof(no));
-    no *anterior2 = (no*) malloc(sizeof(no));
-
+    no *atual2; 
+    no *anterior2;
     atual2 = no_print->esq;
     anterior2 = no_print->esq;
+    printf("passei");
     while(atual2->dir != NULL){
         anterior2 = atual2;
+        printf("Atual num %i", atual2->num);
         atual2 = atual2->dir;
     }
+    printf("passei2");
     anterior2->dir = NULL;
     atual2->dir = no_print->dir;
-    atual2->esq = no_print->esq;
+    if(atual2 == no_print->esq){
+        atual2->esq = NULL;
+    }else{
+        atual2->esq = no_print->esq;
+    }
     if(ant->num > no_print->num){
          ant->esq = atual2;
     }else{
@@ -281,6 +288,9 @@ int main() {
         printf("3 - Imprimir árvore em Ordem\n");
         printf("4 - Imprimir árvore em Pós-Ordem\n");
         printf("5 - Contar\n");
+        printf("6 - Contar altura\n");
+        printf("7 - Remover no\n");
+        printf("8 - Sair\n");
         printf("Escolha uma opção: ");
         fflush(stdin);
         scanf("%d", &opc);
@@ -305,15 +315,23 @@ int main() {
                 printf("Contando...\n");
                 cont = contar_nos(raiz);
                 printf("\nQuantidade de nos: %i\n", cont);
-    
                 break;
             case 6:
                 printf("Contando...\n");
                 cont = cont_altura(raiz);
+                printf("Altura = %i", cont);
+                break;
+            case 7:
+                printf("Remover nó\n");
+                remove_no(raiz);
+                break;
+            case 8:
+                printf("Saindo\n");
+                break;
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    } while (opc != 6);
+    } while (opc != 8);
 
     libera_arvore(raiz);
 
